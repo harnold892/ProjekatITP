@@ -56,7 +56,7 @@ export const getNocenja = (req, res) => {
 };
 export const getNocenjaAdmin = (req, res) => {
   const q = "SELECT * FROM soba";
-  db.query(q, [req.params.odlazak, req.params.dolazak], (err, data) => {
+  db.query(q, null, (err, data) => {
     if (err) return res.send(err);
     return res.status(200).json(data);
   });

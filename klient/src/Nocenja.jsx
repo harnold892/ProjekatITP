@@ -49,24 +49,24 @@ function Nocenja() {
         } catch (err) {
           console.log(err);
         }
-      };
-      const fetchDataAdmin = async () => {
-        try {
-          const res = await Axios.get("/nocenje");
-          setNoc(res.data);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      if (currentUser.JEL_ADMIN === 1) {
-        values[1] = new Date();
-        fetchDataAdmin();
-      } else {
         fetchData();
-      }
+      };
     }
   }, [values[1]]);
-
+  useEffect(() => {
+    const fetchDataAdmin = async () => {
+      try {
+        const res = await Axios.get("/nocenje");
+        console.log(res.data);
+        setNoc(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (currentUser.JEL_ADMIN === 1) {
+      fetchDataAdmin();
+    }
+  }, []);
   return (
     <Grid container spacing={2} rowSpacing={4} sx={{ overflow: "auto" }}>
       {notif && (
