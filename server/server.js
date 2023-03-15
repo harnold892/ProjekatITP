@@ -6,10 +6,16 @@ import nocenjeRoutes from "./routes/nocenja.js";
 import cartRoutes from "./routes/cart.js";
 import pregledRoutes from "./routes/pregled.js";
 import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
+import mailRRoutes from "./routes/mail.js";
+import nodemailer from "nodemailer";
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/mail", mailRRoutes);
 app.use("/server/auth", authRoutes);
 app.use("/server/sport", sportRoutes);
 app.use("/server/spa", spaRoutes);
