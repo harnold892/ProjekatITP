@@ -11,7 +11,7 @@ import Nocenja from "./Nocenja";
 import Sport from "./Sport";
 import AddSpa from "./AddSpa";
 import AddSport from "./Addsport";
-
+import PrijaveAdmina from "./PrijaveAdmina";
 import Cart from "./Cart";
 
 const router = createBrowserRouter([
@@ -44,6 +44,15 @@ const router = createBrowserRouter([
       <Box sx={{ width: "100%", margin: "0" }}>
         <Navbar />
         <Sport />
+      </Box>
+    ),
+  },
+  {
+    path: "/prijave-admina",
+    element: (
+      <Box sx={{ width: "100%", margin: "0" }}>
+        <Navbar />
+        <PrijaveAdmina />
       </Box>
     ),
   },

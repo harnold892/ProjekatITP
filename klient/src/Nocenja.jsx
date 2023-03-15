@@ -42,6 +42,7 @@ function Nocenja() {
         var end = new Date(values[1]);
         start = moment(start).format("YYYY-MM-DD");
         end = moment(end).format("YYYY-MM-DD");
+
         try {
           const res = await Axios.get("/nocenje/" + start + "/" + end);
           console.log(res.data);
@@ -49,8 +50,8 @@ function Nocenja() {
         } catch (err) {
           console.log(err);
         }
-        fetchData();
       };
+      fetchData();
     }
   }, [values[1]]);
   useEffect(() => {

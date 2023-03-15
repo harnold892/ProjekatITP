@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -8,18 +8,35 @@ import {
   TextField,
   Button,
   Alert,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
-
+import dayjs, { Dayjs } from "dayjs";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 function App() {
+  const [rodj, setRodj] = useState(dayjs(new Date()));
+  const [checked, setChecked] = useState(false);
   const [inputs, setInputs] = useState({
     username: "",
     password: "",
     ime: "",
     prezime: "",
     titula: "",
-    datum: "",
+    datum: null,
     email: "",
   });
+  const handleChangeDatum = (newValue1) => {
+    setRodj(newValue1);
+  };
+  const handleChangeAdmin = (event) => {
+    setChecked(event.target.checked);
+  };
+
+  useEffect(() => {
+    setInputs((prev) => ({ ...prev, datum: rodj }));
+  }, [rodj]);
   const [err, setError] = useState(null);
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -27,11 +44,30 @@ function App() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await Axios.post("auth/register", inputs);
-      navigate("/login");
-    } catch (err) {
-      setError(err.response.data);
+    if (
+      inputs.username !== "" &&
+      inputs.password !== "" &&
+      inputs.ime !== "" &&
+      inputs.prezime !== "" &&
+      inputs.email !== ""
+    ) {
+      if (checked === true) {
+        try {
+          await Axios.post("auth/registracija", inputs);
+          navigate("/");
+        } catch (err) {
+          setError(err.response.data);
+        }
+      } else {
+        try {
+          await Axios.post("auth/register", inputs);
+          navigate("/login");
+        } catch (err) {
+          setError(err.response.data);
+        }
+      }
+    } else {
+      setError("Nisu sva polja popunjena!");
     }
   };
   console.log(inputs);
@@ -103,15 +139,21 @@ function App() {
                     variant="outlined"
                   />
                 </Grid>
-                <Grid item>
-                  <TextField
-                    required
-                    onChange={handleChange}
-                    name="datum"
-                    id="outlined-basic"
-                    fullWidth
-                    label="Datum"
-                    variant="outlined"
+                <Grid item xs={3}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DesktopDatePicker
+                      label="Datum rođenja"
+                      inputFormat="DD/MM/YYYY"
+                      value={rodj}
+                      onChange={handleChangeDatum}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={3}>
+                  <FormControlLabel
+                    control={<Checkbox onChange={handleChangeAdmin} />}
+                    label="Admin"
                   />
                 </Grid>
                 <Grid item>

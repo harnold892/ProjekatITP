@@ -24,7 +24,7 @@ function ResponsiveAppBar() {
           "nocenje",
           "sportske aktivnosti",
           "spa aktivnosti",
-          
+          "prijave admina"
         ]);
       }
     } else {
@@ -46,7 +46,9 @@ function ResponsiveAppBar() {
     if (naziv === "korpa") {
       navigate("/cart");
     }
-    
+    if (naziv === "prijave admina") {
+      navigate("/prijave-admina");
+    }
   };
 
   return (
