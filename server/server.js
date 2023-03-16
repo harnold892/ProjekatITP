@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/mail", mailRRoutes);
+app.use("/server/mail", mailRRoutes);
 app.use("/server/auth", authRoutes);
 app.use("/server/sport", sportRoutes);
 app.use("/server/spa", spaRoutes);

@@ -62,6 +62,16 @@ function Cart() {
     setCijena(num.toFixed(2));
   }, [cartSpa, cartNocenje, cartSport]);
   const handleClick = async () => {
+    datumic = new Date();
+    datumMejl = moment(datumic).format("DD/MM/YYYY");
+    var mail = {
+      to: currentUser.EMAIL_KOR,
+      datum: datumMejl,
+      nocenja: cartNocenje,
+      sport: cartSport,
+      spa: cartSpa,
+      cijena_rac: cijena,
+    };
     try {
       let racun = {
         id_kor: currentUser.ID_KOR,
@@ -94,6 +104,11 @@ function Cart() {
       }
     }
     deleteCart();
+    try {
+      await Axios.post("/mail", mail);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
