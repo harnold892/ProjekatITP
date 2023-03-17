@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2023 at 09:08 PM
+-- Generation Time: Mar 09, 2023 at 09:06 PM
 -- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- PHP Version: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `korisnik` (
   `USERNAME` varchar(20) NOT NULL,
-  `PASSWORD` varchar(30) NOT NULL,
+  `PASSWORD` varchar(200) NOT NULL,
   `IME_KOR` varchar(20) NOT NULL,
   `PREZIME_KOR` varchar(30) NOT NULL,
   `TITULA_KOR` varchar(10) DEFAULT NULL,
@@ -38,6 +38,13 @@ CREATE TABLE `korisnik` (
   `JEL_ADMIN` tinyint(4) NOT NULL,
   `ID_KOR` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `korisnik`
+--
+
+INSERT INTO `korisnik` (`USERNAME`, `PASSWORD`, `IME_KOR`, `PREZIME_KOR`, `TITULA_KOR`, `DATUM_KOR`, `EMAIL_KOR`, `JEL_ADMIN`, `ID_KOR`) VALUES
+('admin', '$2b$10$hfPJ7Jn0m.lEOgYixesf0ehZqfsOce4uScVu6kQOTk2lC3iQOBrK.', 'Željko', 'Trifunović', '', '1996-12-01', 'zeljkotrifunovic9@gmail.com', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -63,7 +70,7 @@ CREATE TABLE `racun` (
   `ID_RACUN` int(11) NOT NULL,
   `ID_KOR` int(11) DEFAULT NULL,
   `DATUM_IZD_RACUN` datetime NOT NULL,
-  `CIJENA_RACUN` decimal(5,2) NOT NULL
+  `CIJENA_RACUN` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -100,9 +107,17 @@ CREATE TABLE `soba` (
   `ID_SOBA` int(11) NOT NULL,
   `JEL_APARTMAN` tinyint(1) NOT NULL,
   `KAPACITET_SOBA` int(11) NOT NULL,
-  `CIJENA_KM_SOBA` decimal(4,2) NOT NULL,
-  `CIJENA_E_SOBA` decimal(4,2) NOT NULL
+  `CIJENA_KM_SOBA` decimal(6,2) NOT NULL,
+  `CIJENA_E_SOBA` decimal(6,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `soba`
+--
+
+INSERT INTO `soba` (`ID_SOBA`, `JEL_APARTMAN`, `KAPACITET_SOBA`, `CIJENA_KM_SOBA`, `CIJENA_E_SOBA`) VALUES
+(1, 0, 2, '24.00', '12.00'),
+(2, 1, 2, '48.00', '24.00');
 
 -- --------------------------------------------------------
 
@@ -114,7 +129,7 @@ CREATE TABLE `spa_aktivnosti` (
   `ID_SPA` int(11) NOT NULL,
   `NAZIV_SPA` varchar(30) NOT NULL,
   `OPIS_SPA` varchar(200) DEFAULT NULL,
-  `CIJENA_SPA` decimal(3,2) NOT NULL,
+  `CIJENA_SPA` decimal(5,2) NOT NULL,
   `DATUM_POCETKA_SPA` date NOT NULL,
   `DATUM_ZAVRSETKA_SPA` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -129,7 +144,7 @@ CREATE TABLE `sportske_aktivnosti` (
   `ID_SPORT` int(11) NOT NULL,
   `VRSTA_SPORT` varchar(30) NOT NULL,
   `KAPACITET_SPORT` int(11) NOT NULL,
-  `CIJENA_SPORT` decimal(3,2) NOT NULL,
+  `CIJENA_SPORT` decimal(5,2) NOT NULL,
   `OPIS` varchar(200) DEFAULT NULL,
   `DATUM_POCETKA_SPORT` date NOT NULL,
   `DATUM_ZAVRSETKA_SPORT` date NOT NULL
@@ -202,7 +217,7 @@ ALTER TABLE `sportske_aktivnosti`
 -- AUTO_INCREMENT for table `korisnik`
 --
 ALTER TABLE `korisnik`
-  MODIFY `ID_KOR` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_KOR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `nocenja`
@@ -232,7 +247,7 @@ ALTER TABLE `racun_sport`
 -- AUTO_INCREMENT for table `soba`
 --
 ALTER TABLE `soba`
-  MODIFY `ID_SOBA` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_SOBA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `spa_aktivnosti`
