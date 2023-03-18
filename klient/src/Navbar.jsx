@@ -18,13 +18,13 @@ function ResponsiveAppBar() {
   React.useEffect(() => {
     if (currentUser) {
       if (currentUser.JEL_ADMIN === 0) {
-        setPages(["nocenje", "sportske aktivnosti", "spa aktivnosti", "korpa"]);
+        setPages(["nocenje", "sportske aktivnosti", "spa aktivnosti", "racun"]);
       } else {
         setPages([
           "nocenje",
           "sportske aktivnosti",
           "spa aktivnosti",
-          "prijave admina"
+          "prijave admina",
         ]);
       }
     } else {
@@ -43,7 +43,7 @@ function ResponsiveAppBar() {
     if (naziv === "nocenje") {
       navigate("/nocenja");
     }
-    if (naziv === "korpa") {
+    if (naziv === "racun") {
       navigate("/cart");
     }
     if (naziv === "prijave admina") {

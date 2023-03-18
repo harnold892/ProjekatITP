@@ -72,7 +72,7 @@ function Nocenja() {
     <Grid container spacing={2} rowSpacing={4} sx={{ overflow: "auto" }}>
       {notif && (
         <Grid item xs={12}>
-          <Alert severity="success">Artikal je uspješno dodat u korpu!</Alert>
+          <Alert severity="success">Rezervacija je dodata na račun!</Alert>
         </Grid>
       )}
       {currentUser.JEL_ADMIN === 0 && (

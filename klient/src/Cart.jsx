@@ -62,6 +62,14 @@ function Cart() {
     setCijena(num.toFixed(2));
   }, [cartSpa, cartNocenje, cartSport]);
   const handleClick = async () => {
+    const mail = {
+      to: currentUser.EMAIL_KOR,
+      datum: new Date(),
+      cijena_r: cijena,
+      nocenja: [],
+      sport: [],
+      spa: [],
+    };
     try {
       let racun = {
         id_kor: currentUser.ID_KOR,
@@ -78,6 +86,7 @@ function Cart() {
       } catch (err) {
         console.log(err);
       }
+      mail.spa = cartSpa;
     }
     if (cartSport.length > 0) {
       try {
@@ -85,6 +94,7 @@ function Cart() {
       } catch (err) {
         console.log(err);
       }
+      mail.sport = cartSport;
     }
     if (cartNocenje.length > 0) {
       try {
@@ -92,8 +102,15 @@ function Cart() {
       } catch (err) {
         console.log(err);
       }
+      mail.nocenja = cartNocenje;
     }
     deleteCart();
+    console.log(mail);
+    try {
+      await Axios.post("/mail", mail);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
