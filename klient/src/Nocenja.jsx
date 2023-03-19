@@ -7,6 +7,11 @@ import {
   Button,
   CardActions,
   Alert,
+  Box,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
 } from "@mui/material";
 import Axios from "axios";
 import { useEffect, useState } from "react";
@@ -21,11 +26,79 @@ import moment from "moment";
 function Nocenja() {
   const { currentUser } = useContext(AuthContext);
   const [values, setValues] = useState([]);
-  const [noc, setNoc] = useState([]);
-  const [notif, setNotif] = useState(false);
+  const [sortnoc, setSortNoc] = useState([]);
+  const [fullnoc, setFullNoc] = useState([]);
+  const [notif, setNotif] = useState("");
   const { addCartNocenja } = useContext(CartContext);
   const [open, setOpen] = useState(false);
   const [id, setID] = useState();
+  const [idSelect, setIdSelect] = useState("");
+  const [kapacitetSelect, setKapacitetSelect] = useState("");
+  const [cijenaSelect, setCijenaSelect] = useState("");
+  const [smjestajSelect, setSmjestajSelect] = useState("");
+  const handleChangeSelectBroj = (event) => {
+    setIdSelect(event.target.value);
+    setSortNoc(
+      fullnoc.filter(
+        (soba) =>
+          soba.ID_SOBA === event.target.value &&
+          (kapacitetSelect !== ""
+            ? kapacitetSelect === soba.KAPACITET_SOBA
+            : true) &&
+          (smjestajSelect !== "" ? smjestajSelect === soba.JEL_APARTMAN : true)
+      )
+    );
+  };
+  const handleChangeSelectSmjestaj = (event) => {
+    setSmjestajSelect(event.target.value);
+    setSortNoc(
+      fullnoc.filter(
+        (soba) =>
+          soba.JEL_APARTMAN === event.target.value &&
+          (idSelect !== "" ? idSelect === soba.ID_SOBA : true) &&
+          (kapacitetSelect !== ""
+            ? kapacitetSelect === soba.KAPACITET_SOBA
+            : true)
+      )
+    );
+  };
+  const handleClickReset = () => {
+    setIdSelect("");
+    setCijenaSelect("");
+    setKapacitetSelect("");
+    setSmjestajSelect("");
+    setSortNoc(fullnoc);
+  };
+  const handleChangeSelectCijene = (event) => {
+    setCijenaSelect(event.target.value);
+    if (event.target.value === 1) {
+      setFullNoc(
+        [...fullnoc].sort((a, b) => a.CIJENA_KM_SOBA - b.CIJENA_KM_SOBA)
+      );
+      setSortNoc(
+        [...sortnoc].sort((a, b) => a.CIJENA_KM_SOBA - b.CIJENA_KM_SOBA)
+      );
+    } else {
+      setFullNoc(
+        [...fullnoc].sort((a, b) => b.CIJENA_KM_SOBA - a.CIJENA_KM_SOBA)
+      );
+      setSortNoc(
+        [...sortnoc].sort((a, b) => b.CIJENA_KM_SOBA - a.CIJENA_KM_SOBA)
+      );
+    }
+  };
+  const handleChangeSelectKapacitet = (event) => {
+    setKapacitetSelect(event.target.value);
+    setSortNoc(
+      fullnoc.filter(
+        (soba) =>
+          soba.KAPACITET_SOBA === event.target.value &&
+          (idSelect !== "" ? idSelect === soba.ID_SOBA : true) &&
+          (smjestajSelect !== "" ? smjestajSelect === soba.JEL_APARTMAN : true)
+      )
+    );
+  };
+
   const handleClickOpen = (id) => {
     setID(id);
     setOpen(true);
@@ -45,8 +118,8 @@ function Nocenja() {
 
         try {
           const res = await Axios.get("/nocenje/" + start + "/" + end);
-          console.log(res.data);
-          setNoc(res.data);
+          setFullNoc(res.data);
+          setSortNoc(res.data);
         } catch (err) {
           console.log(err);
         }
@@ -58,8 +131,8 @@ function Nocenja() {
     const fetchDataAdmin = async () => {
       try {
         const res = await Axios.get("/nocenje");
-        console.log(res.data);
-        setNoc(res.data);
+
+        setSortNoc(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -68,13 +141,19 @@ function Nocenja() {
       fetchDataAdmin();
     }
   }, []);
+  useEffect(() => {
+    if (typeof values[0] !== "undefined") {
+      setSortNoc([]);
+    }
+  }, [values[0]]);
   return (
     <Grid container spacing={2} rowSpacing={4} sx={{ overflow: "auto" }}>
-      {notif && (
+      {notif === 1 && (
         <Grid item xs={12}>
           <Alert severity="success">Rezervacija je dodata na račun!</Alert>
         </Grid>
       )}
+
       {currentUser.JEL_ADMIN === 0 && (
         <>
           <Grid item xs={12}>
@@ -97,11 +176,105 @@ function Nocenja() {
               rangeHover
             />
           </Grid>
+          {typeof values[1] !== "undefined" && (
+            <Grid
+              item
+              xs={12}
+              style={{ display: "flex", alignItems: "center" }}
+              justifyContent="center"
+            >
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Broj sobe
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={idSelect}
+                    label="Broj sobe"
+                    onChange={handleChangeSelectBroj}
+                  >
+                    {fullnoc.length > 0 ? (
+                      fullnoc.map((n) => (
+                        <MenuItem value={n.ID_SOBA}>{n.ID_SOBA}</MenuItem>
+                      ))
+                    ) : (
+                      <MenuItem value={0}>
+                        Nema slobodnih soba u tom periodu
+                      </MenuItem>
+                    )}
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box sx={{ minWidth: 160 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Kapacitet sobe
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={kapacitetSelect}
+                    label="Kapacitet sobe"
+                    onChange={handleChangeSelectKapacitet}
+                  >
+                    <MenuItem value={1}>1</MenuItem>
+                    <MenuItem value={2}>2</MenuItem>
+                    <MenuItem value={3}>3</MenuItem>
+                    <MenuItem value={4}>4</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box sx={{ minWidth: 160 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Sortiranje cijena
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={cijenaSelect}
+                    label="Sortiranje cijena"
+                    onChange={handleChangeSelectCijene}
+                  >
+                    <MenuItem value={1}>Od najvece do najmanje</MenuItem>
+                    <MenuItem value={2}>Od najmanje do najvece</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Vrsta smještaja
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={smjestajSelect}
+                    label="Vrsta smještaja"
+                    onChange={handleChangeSelectSmjestaj}
+                  >
+                    <MenuItem value={1}>Apartman</MenuItem>
+                    <MenuItem value={0}>Soba</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              {(smjestajSelect !== "" ||
+                cijenaSelect !== "" ||
+                kapacitetSelect !== "" ||
+                idSelect !== "") && (
+                <Button variant="contained" onClick={handleClickReset}>
+                  Resetuj sort
+                </Button>
+              )}
+            </Grid>
+          )}
         </>
       )}
 
-      {noc.length > 0 &&
-        noc.map((n) => (
+      {sortnoc.length > 0 &&
+        sortnoc.map((n) => (
           <Grid item xs={3} key={n.ID_SOBA}>
             <Card sx={{ maxWidth: 345 }} key="{n.ID_SOBA}">
               <CardMedia
@@ -157,8 +330,8 @@ function Nocenja() {
                         DATUM_ODLASKA: new Date(values[1]),
                       });
                       setValues([]);
-                      setNotif(true);
-                      setNoc([]);
+                      setNotif(1);
+                      setSortNoc([]);
                     }}
                   >
                     dodaj u korpu
