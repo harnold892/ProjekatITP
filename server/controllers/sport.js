@@ -1,7 +1,14 @@
 import { db } from "../db.js";
-export const getSport = (req, res) => {
+export const getSportAdmin = (req, res) => {
   const q = "SELECT * FROM sportske_aktivnosti";
   db.query(q, null, (err, data) => {
+    if (err) return res.send(err);
+    return res.status(200).json(data);
+  });
+};
+export const getSport = (req, res) => {
+  const q = "SELECT * FROM sportske_aktivnosti WHERE DATUM_POCETKA_SPORT>?";
+  db.query(q, [new Date()], (err, data) => {
     if (err) return res.send(err);
     return res.status(200).json(data);
   });

@@ -1,6 +1,13 @@
 import { db } from "../db.js";
 export const getSpa = (req, res) => {
-  const q = "SELECT * FROM spa_aktivnosti";
+  const q = "SELECT * FROM spa_aktivnosti WHERE DATUM_POCETKA_SPA>?";
+  db.query(q, [new Date()], (err, data) => {
+    if (err) return res.send(err);
+    return res.status(200).json(data);
+  });
+};
+export const getSpaAdmin = (req, res) => {
+  const q = "SELECT * FROM spa_aktivnosti ";
   db.query(q, null, (err, data) => {
     if (err) return res.send(err);
     return res.status(200).json(data);

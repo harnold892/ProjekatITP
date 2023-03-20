@@ -12,6 +12,7 @@ import {
   MenuItem,
   FormControl,
   Select,
+  Paper,
 } from "@mui/material";
 import Axios from "axios";
 import { useEffect, useState } from "react";
@@ -176,100 +177,114 @@ function Nocenja() {
               rangeHover
             />
           </Grid>
-          {typeof values[1] !== "undefined" && (
-            <Grid
-              item
-              xs={12}
-              style={{ display: "flex", alignItems: "center" }}
-              justifyContent="center"
+
+          <Grid
+            item
+            xs={12}
+            style={{ display: "flex", alignItems: "center" }}
+            justifyContent="center"
+          >
+            <Paper
+              elevation={2}
+              sx={{ padding: 5 }}
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-around",
+              }}
             >
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Broj sobe
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={idSelect}
-                    label="Broj sobe"
-                    onChange={handleChangeSelectBroj}
-                  >
-                    {fullnoc.length > 0 ? (
-                      fullnoc.map((n) => (
-                        <MenuItem value={n.ID_SOBA}>{n.ID_SOBA}</MenuItem>
-                      ))
-                    ) : (
-                      <MenuItem value={0}>
-                        Nema slobodnih soba u tom periodu
-                      </MenuItem>
-                    )}
-                  </Select>
-                </FormControl>
-              </Box>
-              <Box sx={{ minWidth: 160 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Kapacitet sobe
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={kapacitetSelect}
-                    label="Kapacitet sobe"
-                    onChange={handleChangeSelectKapacitet}
-                  >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-              <Box sx={{ minWidth: 160 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Sortiranje cijena
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={cijenaSelect}
-                    label="Sortiranje cijena"
-                    onChange={handleChangeSelectCijene}
-                  >
-                    <MenuItem value={1}>Od najvece do najmanje</MenuItem>
-                    <MenuItem value={2}>Od najmanje do najvece</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Vrsta smještaja
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={smjestajSelect}
-                    label="Vrsta smještaja"
-                    onChange={handleChangeSelectSmjestaj}
-                  >
-                    <MenuItem value={1}>Apartman</MenuItem>
-                    <MenuItem value={0}>Soba</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-              {(smjestajSelect !== "" ||
-                cijenaSelect !== "" ||
-                kapacitetSelect !== "" ||
-                idSelect !== "") && (
-                <Button variant="contained" onClick={handleClickReset}>
-                  Resetuj sort
-                </Button>
+              {typeof values[1] !== "undefined" && (
+                <>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Broj sobe
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={idSelect}
+                        label="Broj sobe"
+                        onChange={handleChangeSelectBroj}
+                      >
+                        {fullnoc.length > 0 ? (
+                          fullnoc.map((n) => (
+                            <MenuItem value={n.ID_SOBA}>{n.ID_SOBA}</MenuItem>
+                          ))
+                        ) : (
+                          <MenuItem value={0}>
+                            Nema slobodnih soba u tom periodu
+                          </MenuItem>
+                        )}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <Box sx={{ minWidth: 160 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Kapacitet sobe
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={kapacitetSelect}
+                        label="Kapacitet sobe"
+                        onChange={handleChangeSelectKapacitet}
+                      >
+                        <MenuItem value={1}>1</MenuItem>
+                        <MenuItem value={2}>2</MenuItem>
+                        <MenuItem value={3}>3</MenuItem>
+                        <MenuItem value={4}>4</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <Box sx={{ minWidth: 160 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Sortiranje cijena
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={cijenaSelect}
+                        label="Sortiranje cijena"
+                        onChange={handleChangeSelectCijene}
+                      >
+                        <MenuItem value={1}>Od najvece do najmanje</MenuItem>
+                        <MenuItem value={2}>Od najmanje do najvece</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <Box sx={{ minWidth: 160 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Vrsta smještaja
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={smjestajSelect}
+                        label="Vrsta smještaja"
+                        onChange={handleChangeSelectSmjestaj}
+                      >
+                        <MenuItem value={1}>Apartman</MenuItem>
+                        <MenuItem value={0}>Soba</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  {(smjestajSelect !== "" ||
+                    cijenaSelect !== "" ||
+                    kapacitetSelect !== "" ||
+                    idSelect !== "") && (
+                    <Button variant="contained" onClick={handleClickReset}>
+                      Resetuj sort
+                    </Button>
+                  )}
+                </>
               )}
-            </Grid>
-          )}
+            </Paper>
+          </Grid>
         </>
       )}
 
