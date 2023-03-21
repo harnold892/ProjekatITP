@@ -131,7 +131,10 @@ function Cart() {
       )}
       {cartSpa.length > 0 && (
         <Grid item xs={12}>
-          <TableContainer component={Paper}>
+          <TableContainer
+            component={Paper}
+            style={{ backgroundColor: "#272727" }}
+          >
             <Typography variant="h2">Spa</Typography>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
@@ -152,16 +155,26 @@ function Cart() {
                 {cartSpa.map((spa) => (
                   <StyledTableRow key={i++}>
                     <StyledTableCell component="th" scope="row">
-                      {spa.NAZIV_SPA}
+                      <Typography> {spa.NAZIV_SPA}</Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {moment(spa.DATUM_POCETKA_SPA).format("DD/MM/YYYY")}{" "}
+                      <Typography>
+                        {" "}
+                        {moment(spa.DATUM_POCETKA_SPA).format(
+                          "DD/MM/YYYY"
+                        )}{" "}
+                      </Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {moment(spa.DATUM_ZAVRSETKA_SPA).format("DD/MM/YYYY")}{" "}
+                      <Typography>
+                        {" "}
+                        {moment(spa.DATUM_ZAVRSETKA_SPA).format(
+                          "DD/MM/YYYY"
+                        )}{" "}
+                      </Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {spa.CIJENA_SPA}
+                      <Typography> {spa.CIJENA_SPA}</Typography>
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
@@ -172,7 +185,10 @@ function Cart() {
       )}
       {cartSport.length > 0 && (
         <Grid item xs={12}>
-          <TableContainer component={Paper}>
+          <TableContainer
+            component={Paper}
+            style={{ backgroundColor: "#272727" }}
+          >
             <Typography variant="h2">Sport</Typography>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
@@ -194,20 +210,30 @@ function Cart() {
                 {cartSport.map((sport) => (
                   <StyledTableRow key={i++}>
                     <StyledTableCell component="th" scope="row">
-                      {sport.VRSTA_SPORT}
+                      <Typography>{sport.VRSTA_SPORT}</Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {sport.KAPACITET_SPORT}
+                      <Typography> {sport.KAPACITET_SPORT}</Typography>
                     </StyledTableCell>
 
                     <StyledTableCell align="right">
-                      {moment(sport.DATUM_POCETKA_SPORT).format("DD/MM/YYYY")}{" "}
+                      <Typography>
+                        {" "}
+                        {moment(sport.DATUM_POCETKA_SPORT).format(
+                          "DD/MM/YYYY"
+                        )}{" "}
+                      </Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {moment(sport.DATUM_ZAVRSETKA_SPORT).format("DD/MM/YYYY")}{" "}
+                      <Typography>
+                        {" "}
+                        {moment(sport.DATUM_ZAVRSETKA_SPORT).format(
+                          "DD/MM/YYYY"
+                        )}{" "}
+                      </Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {sport.CIJENA_SPORT}
+                      <Typography>{sport.CIJENA_SPORT}</Typography>
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
@@ -218,7 +244,10 @@ function Cart() {
       )}
       {cartNocenje.length > 0 && (
         <Grid item xs={12}>
-          <TableContainer component={Paper}>
+          <TableContainer
+            component={Paper}
+            style={{ backgroundColor: "#272727" }}
+          >
             <Typography variant="h2">Nocenje</Typography>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
@@ -241,7 +270,7 @@ function Cart() {
                 {cartNocenje.map((noc) => (
                   <StyledTableRow key={i++}>
                     <StyledTableCell component="th" scope="row">
-                      {noc.ID_SOBA}
+                      <Typography>{noc.ID_SOBA}</Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
                       {noc.JEL_APARTMAN ? (
@@ -251,20 +280,25 @@ function Cart() {
                       )}
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {noc.KAPACITET_SOBA}
+                      <Typography> {noc.KAPACITET_SOBA}</Typography>
                     </StyledTableCell>
 
                     <StyledTableCell align="right">
-                      {moment(noc.DATUM_DOLASKA).format("DD/MM/YYYY")}{" "}
+                      <Typography>
+                        {" "}
+                        {moment(noc.DATUM_DOLASKA).format("DD/MM/YYYY")}{" "}
+                      </Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {moment(noc.DATUM_ODLASKA).format("DD/MM/YYYY")}{" "}
+                      <Typography>
+                        {moment(noc.DATUM_ODLASKA).format("DD/MM/YYYY")}{" "}
+                      </Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {noc.CIJENA_E_SOBA}
+                      <Typography>{noc.CIJENA_E_SOBA}</Typography>
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {noc.CIJENA_KM_SOBA}
+                      <Typography>{noc.CIJENA_KM_SOBA}</Typography>
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}

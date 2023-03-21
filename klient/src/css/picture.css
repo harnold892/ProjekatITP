@@ -1,0 +1,44 @@
+.dd {
+  font-family: "Arizonia", cursive;
+  color: white;
+  position: absolute;
+  top: 150px;
+  left: 16px;
+  font-size: 40px;
+}
+.gr {
+  position: relative;
+}
+.butoni {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  bottom: 140px;
+  width: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.MuiOutlinedInput-notchedOutline {
+  border-width: 1px !important;
+  border-color: white !important;
+}
+
+.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+  color: white !important;
+}
+.MuiSelect-icon {
+  color: white !important;
+}
+.MuiSelect-iconOutlined {
+  color: white !important;
+}
+#demo-simple-select-label {
+  color: white !important;
+}
+.MuiTypography-root {
+  color: white !important;
+}
+.MuiCardContent-root {
+  background-color: "#272727" !important;
+}

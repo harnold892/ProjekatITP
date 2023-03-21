@@ -24,6 +24,7 @@ import { useContext } from "react";
 import plus from "./img/plus.png";
 import { Link, useNavigate } from "react-router-dom";
 import Popup from "./Popup";
+import styles from "./css/picture.css";
 function Spa() {
   const { currentUser } = useContext(AuthContext);
   const { addCartSpa } = useContext(CartContext);
@@ -146,17 +147,41 @@ function Spa() {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-around",
+              backgroundColor: "#272727",
             }}
           >
-            <Box sx={{ minWidth: 150 }}>
+            <Box
+              style={{
+                borderColor: "#add8e6",
+              }}
+              sx={{
+                color: "#add8e6",
+                minWidth: 150,
+              }}
+            >
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Vrsta spa</InputLabel>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  style={{
+                    borderColor: "#add8e6",
+                  }}
+                  sx={{
+                    borderColor: "#add8e6",
+                    color: "#add8e6",
+                  }}
+                >
+                  Vrsta spa
+                </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={vrstaSelect}
                   label="Vrsta sporta"
                   onChange={handleChangeSelectVrsta}
+                  sx={{
+                    borderColor: "#add8e6",
+                    color: "#add8e6",
+                  }}
                 >
                   {fullspa.length > 0 &&
                     uniqueNames.map((s) => <MenuItem value={s}>{s}</MenuItem>)}
@@ -219,7 +244,7 @@ function Spa() {
                 image={plus}
                 alt="green iguana"
               />
-              <CardContent>
+              <CardContent style={{ backgroundColor: "#272727" }}>
                 <Typography gutterBottom variant="h4" component="div">
                   Dodaj novi spa događaj
                 </Typography>
@@ -236,8 +261,8 @@ function Spa() {
                 image={slika}
                 alt="green iguana"
               />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+              <CardContent style={{ backgroundColor: "#272727" }}>
+                <Typography textAlign="center" variant="h4">
                   {sp.NAZIV_SPA}
                 </Typography>
                 <Typography variant="h6" color="text.secondary">
@@ -246,30 +271,32 @@ function Spa() {
                 <Typography variant="body2" color="text.secondary">
                   Opis:{sp.OPIS_SPA}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h6" color="text.secondary">
                   {moment(sp.DATUM_POCETKA_SPA).format("DD/MM/YYYY")} -{" "}
                   {moment(sp.DATUM_ZAVRSETKA_SPA).format("DD/MM/YYYY")}
                 </Typography>
               </CardContent>
               {currentUser.JEL_ADMIN === 0 ? (
-                <CardActions>
+                <CardActions style={{ backgroundColor: "#272727" }}>
                   <Button
                     onClick={() => {
                       add(sp);
                       setNotif(true);
                     }}
-                    size="small"
+                    variant="contained"
+                    style={{ width: "100%" }}
                   >
                     Dodaj u korpu
                   </Button>
                 </CardActions>
               ) : (
-                <CardActions>
+                <CardActions style={{ backgroundColor: "#272727" }}>
                   <Button
                     onClick={() => {
                       handleClickOpen(sp.ID_SPA);
                     }}
-                    size="small"
+                    variant="contained"
+                    style={{ width: "100%" }}
                   >
                     Pregledaj istoriju
                   </Button>

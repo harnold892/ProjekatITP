@@ -24,6 +24,7 @@ import { useContext } from "react";
 import plus from "./img/plus.png";
 import { Link, useNavigate } from "react-router-dom";
 import Popup from "./Popup";
+import styles from "./css/picture.css";
 function Sport() {
   const { currentUser } = useContext(AuthContext);
   const { addCartSport } = useContext(CartContext);
@@ -156,6 +157,7 @@ function Sport() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-around",
+            backgroundColor: "#272727",
           }}
         >
           <Box sx={{ minWidth: 150 }}>
@@ -231,7 +233,7 @@ function Sport() {
               image={plus}
               alt="green iguana"
             />
-            <CardContent>
+            <CardContent style={{ backgroundColor: "#272727" }}>
               <Typography gutterBottom variant="h4" component="div">
                 Dodaj novi sportski dogadjaj
               </Typography>
@@ -248,43 +250,45 @@ function Sport() {
               image={slika}
               alt="green iguana"
             />
-            <CardContent>
-              <Typography gutterBottom variant="h5">
+            <CardContent style={{ backgroundColor: "#272727" }}>
+              <Typography textAlign="center" variant="h4">
                 {sport.VRSTA_SPORT}
               </Typography>
               <Typography variant="h6" color="text.secondary">
                 Kapacitet={sport.KAPACITET_SPORT}
               </Typography>
-              <Typography variant="h6" color="text.secondary">
+              <Typography vvariant="h6" color="text.secondary">
                 Cijena={sport.CIJENA_SPORT}KM po osobi
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Opis:{sport.OPIS}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="h6" color="text.secondary">
                 {moment(sport.DATUM_POCETKA_SPORT).format("DD/MM/YYYY")} -{" "}
                 {moment(sport.DATUM_ZAVRSETKA_SPORT).format("DD/MM/YYYY")}
               </Typography>
             </CardContent>
             {currentUser.JEL_ADMIN === 0 ? (
-              <CardActions>
+              <CardActions style={{ backgroundColor: "#272727" }}>
                 <Button
                   onClick={() => {
                     add(sport);
                     setNotif(true);
                   }}
-                  size="small"
+                  variant="contained"
+                  style={{ width: "100%" }}
                 >
                   Dodaj u korpu
                 </Button>
               </CardActions>
             ) : (
-              <CardActions>
+              <CardActions style={{ backgroundColor: "#272727" }}>
                 <Button
                   onClick={() => {
                     handleClickOpen(sport.ID_SPORT);
                   }}
-                  size="small"
+                  variant="contained"
+                  style={{ width: "100%" }}
                 >
                   Pregledaj istoriju
                 </Button>

@@ -24,6 +24,7 @@ import { CartContext } from "./cartContext";
 import { Calendar } from "react-multi-date-picker";
 import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
+import styles from "./css/picture.css";
 function Nocenja() {
   const { currentUser } = useContext(AuthContext);
   const [values, setValues] = useState([]);
@@ -192,6 +193,7 @@ function Nocenja() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-around",
+                backgroundColor: "#272727",
               }}
             >
               {typeof values[1] !== "undefined" && (
@@ -298,7 +300,7 @@ function Nocenja() {
                 image={slika}
                 alt="green iguana"
               />
-              <CardContent>
+              <CardContent style={{ backgroundColor: "#272727" }}>
                 <Typography textAlign="center" variant="h4">
                   {n.ID_SOBA}
                 </Typography>
@@ -320,20 +322,22 @@ function Nocenja() {
                 </Typography>
               </CardContent>
               {currentUser.JEL_ADMIN === 1 ? (
-                <CardActions>
+                <CardActions style={{ backgroundColor: "#272727" }}>
                   <Button
                     onClick={() => {
                       handleClickOpen(n.ID_SOBA);
                     }}
-                    size="small"
+                    variant="contained"
+                    style={{ width: "100%" }}
                   >
                     Pregledaj istoriju
                   </Button>
                 </CardActions>
               ) : (
-                <CardActions>
+                <CardActions style={{ backgroundColor: "#272727" }}>
                   <Button
-                    size="small"
+                    variant="contained"
+                    style={{ width: "100%" }}
                     onClick={() => {
                       addCartNocenja({
                         ID_SOBA: n.ID_SOBA,
